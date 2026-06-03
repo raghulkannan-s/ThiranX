@@ -4,7 +4,6 @@ import com.zsgs.thiranx.data.dto.Employee;
 import com.zsgs.thiranx.data.dto.Notification;
 import com.zsgs.thiranx.data.dto.Task;
 import com.zsgs.thiranx.data.repository.ThiranXDB;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +18,21 @@ class TaskAssignModel {
     List<Task> listAssignableTasks(AssignMode mode, Employee currentUser) {
         if (mode == null || currentUser == null) return new ArrayList<>();
         if (mode == AssignMode.MANAGER_ASSIGN) {
-            return ThiranXDB.getInstance().getUnassignedTasksCreatedBy(currentUser.getId());
+            return ThiranXDB.getInstance().getTasksCreatedBy(currentUser.getId());
         }
         return ThiranXDB.getInstance().getTasksAssignedTo(currentUser.getId());
     }
 
     List<Employee> listAssignees(Employee currentUser, AssignMode mode) {
         if (mode == AssignMode.MANAGER_ASSIGN) {
-            return ThiranXDB.getInstance().getEmployeesExcept(null);
+            List<Employee> all = ThiranXDB.getInstance().getEmployeesExcept(null);
+            List<Employee> employees = new ArrayList<>();
+            for (Employee candidate : all) {
+                if (candidate.getRole() == Employee.Role.EMPLOYEE) {
+                    employees.add(candidate);
+                }
+            }
+            return employees;
         }
         Long excludeId = currentUser == null ? null : currentUser.getId();
         List<Employee> all = ThiranXDB.getInstance().getEmployeesExcept(excludeId);

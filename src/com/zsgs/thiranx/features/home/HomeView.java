@@ -83,7 +83,7 @@ public class HomeView {
                     new NotificationView(employee).init();
                     break;
                 case "10":
-                    new ReportView().init();
+                    new ReportView(employee).init();
                     break;
                 case "11":
                     System.out.println("You have been signed out.");

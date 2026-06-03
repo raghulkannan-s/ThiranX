@@ -27,7 +27,7 @@ Console-based Java application to manage employees, tasks, notifications, and si
 ## How to Run
 1. Open the project in your IDE.
 2. Run the main class:
-	- com.zsgs.thiranx.ThiranXApplication
+	- com.raghul.thiranx.ThiranXApplication
 
 ## Notes
 - The application is console-driven; follow prompts to navigate the menus.
